@@ -2,18 +2,19 @@ import { useProductAPI } from "./useAPIs";
 import { Product } from "./Product";
 export function ProductPage() {
     const { data, loading, error } = useProductAPI(
-        "https://fakestoreapi.com/products?limit=5",
+        "https://fakestoreapi.com/products?limit=12",
     );
     console.log(data);
     if (loading) return <h2>Loading...</h2>;
     if (error) return <h2>Error Occured</h2>;
     return (
         <>
+            <h1 style={{ textAlign: "center" }}>Product Available</h1>
             <div
                 style={{
                     display: "flex",
-                    justifyItems: "center",
-                    height: "100vh",
+                    flexWrap: "wrap",
+                        gap:"1rem"
                 }}
             >
                 {data.map((el) => (
