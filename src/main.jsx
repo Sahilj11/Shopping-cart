@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Product } from './components/Product'
-
+import { ProductPage } from './components/ProductPage'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Product/>
+    <ProductPage/>
   </React.StrictMode>,
 )
