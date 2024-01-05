@@ -9,12 +9,13 @@ export function ProductPage() {
     if (error) return <h2>Error Occured</h2>;
     return (
         <>
-            <h1 style={{ textAlign: "center" }}>Product Available</h1>
+            <h1 style={{ textAlign: "center", margin: "10px" }}>Product Available</h1>
             <div
                 style={{
                     display: "flex",
                     flexWrap: "wrap",
-                        gap:"1rem"
+                    gap: "1rem",
+                    justifyContent: "center",
                 }}
             >
                 {data.map((el) => (

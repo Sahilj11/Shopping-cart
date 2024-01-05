@@ -1,8 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { ProductPage } from './components/ProductPage'
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ProductPage/>
-  </React.StrictMode>,
-)
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>,
+);

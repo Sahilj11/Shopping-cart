@@ -5,8 +5,8 @@ export const AddToCart = styled.button`
   font-weight: bold;
   grid-area: ${({ gridlocation }) => gridlocation};
   border-radius: 4px;
-  background-color: #ae2012;
-  border: 1px solid #ae2012;
+  background-color: #e76f51;
+  border: 1px solid #e76f51;
   color: white;
 
   &:hover {
