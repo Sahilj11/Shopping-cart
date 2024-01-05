@@ -1,5 +1,6 @@
 import styled from "styled-components";
-export const AddToCart = styled.button`
+import { ButtonCart } from "../Product";
+export const AddToCart = styled(ButtonCart)`
   width: 70%;
   height: 35px;
   font-weight: bold;

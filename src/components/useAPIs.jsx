@@ -9,7 +9,6 @@ export const useProductAPI = (url) => {
             try {
                 const res = await fetch(url);
                 let result = await res.json();
-                console.log(result);
                 setData(result);
             } catch (err) {
                 setError(err);

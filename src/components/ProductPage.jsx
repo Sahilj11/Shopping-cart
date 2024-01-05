@@ -4,7 +4,6 @@ export function ProductPage() {
     const { data, loading, error } = useProductAPI(
         "https://fakestoreapi.com/products?limit=12",
     );
-    console.log(data);
     if (loading) return <h2>Loading...</h2>;
     if (error) return <h2>Error Occured</h2>;
     return (
@@ -21,6 +20,7 @@ export function ProductPage() {
                 {data.map((el) => (
                     <Product
                         key={el.id}
+                        id={el.id}
                         title={el.title}
                         price={el.price}
                         imgUrl={el.image}
