@@ -1,7 +1,24 @@
+import { useSearchParams } from "react-router-dom";
 import { AddToCart } from "./style/AddToCart.style";
 import { CatalogueContainer } from "./style/CatalogueContainer.style";
-
-export function Product({ id,title, price, imgUrl }) {
+import { Link } from "react-router-dom";
+import { ProductDesc } from "./ProductDesc";
+import { useState } from "react";
+export function Product({ id, title, price, imgUrl, desc }) {
+    const dyUrl = `/productdetail/${id}`;
+    // const [prdDetail, setprdDetail] = useState(false);
+// {prdDetail && (
+//                 <ProductDesc
+//                     title={title}
+//                     price={price}
+//                     imgUrl={imgUrl}
+//                     desc={desc}
+//                 />
+//             )}
+    console.log(id, title, price, imgUrl, desc);
+    const testFun = () => {
+        <ProductDesc/>
+    };
     return (
         <>
             <CatalogueContainer>
@@ -12,16 +29,24 @@ export function Product({ id,title, price, imgUrl }) {
                     width="70%"
                     height="70%"
                 />
-                <p style={{ gridArea: "title", padding: "10px" }}>{title}</p>
+                <Link to={dyUrl} onClick={testFun}>
+                    <p style={{ gridArea: "title", padding: "10px" }}>{title}</p>
+                </Link>
                 <p style={{ gridArea: "price", padding: "10px" }}>Price:- ${price}</p>
                 <AddToCart gridlocation="buyBt" id={id}></AddToCart>
             </CatalogueContainer>
+            
         </>
     );
 }
-export function ButtonCart({ className,id }) {
-    const getComponentInfo = (e)=>{
-        console.log(e.target.id);
-    }
-    return <button className={className} onClick={getComponentInfo} id={id}>Add to Cart</button>;
+export function ButtonCart({ className, id }) {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const getComponentInfo = (e) => {
+        setSearchParams({ id: e.target.id });
+    };
+    return (
+        <button className={className} onClick={getComponentInfo} id={id}>
+            Add to Cart
+        </button>
+    );
 }

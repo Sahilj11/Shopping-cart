@@ -24,6 +24,7 @@ export function ProductPage() {
                         title={el.title}
                         price={el.price}
                         imgUrl={el.image}
+                        desc={el.description}
                     />
                 ))}
             </div>
