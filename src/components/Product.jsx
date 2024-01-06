@@ -7,17 +7,17 @@ import { useState } from "react";
 export function Product({ id, title, price, imgUrl, desc }) {
     const dyUrl = `/productdetail/${id}`;
     // const [prdDetail, setprdDetail] = useState(false);
-// {prdDetail && (
-//                 <ProductDesc
-//                     title={title}
-//                     price={price}
-//                     imgUrl={imgUrl}
-//                     desc={desc}
-//                 />
-//             )}
+    // {prdDetail && (
+    //                 <ProductDesc
+    //                     title={title}
+    //                     price={price}
+    //                     imgUrl={imgUrl}
+    //                     desc={desc}
+    //                 />
+    //             )}
     console.log(id, title, price, imgUrl, desc);
     const testFun = () => {
-        <ProductDesc/>
+        <ProductDesc />;
     };
     return (
         <>
@@ -35,17 +35,15 @@ export function Product({ id, title, price, imgUrl, desc }) {
                 <p style={{ gridArea: "price", padding: "10px" }}>Price:- ${price}</p>
                 <AddToCart gridlocation="buyBt" id={id}></AddToCart>
             </CatalogueContainer>
-            
         </>
     );
 }
-export function ButtonCart({ className, id }) {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const getComponentInfo = (e) => {
-        setSearchParams({ id: e.target.id });
+export function ButtonCart({ className }) {
+    const getComponentInfo = () => {
+        console.log("Added to Cart");
     };
     return (
-        <button className={className} onClick={getComponentInfo} id={id}>
+        <button className={className} onClick={getComponentInfo}>
             Add to Cart
         </button>
     );
