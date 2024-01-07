@@ -33,17 +33,20 @@ export function Product({ id, title, price, imgUrl, desc }) {
                     <p style={{ gridArea: "title", padding: "10px" }}>{title}</p>
                 </Link>
                 <p style={{ gridArea: "price", padding: "10px" }}>Price:- ${price}</p>
-                <AddToCart gridlocation="buyBt" id={id}></AddToCart>
+                <AddToCart gridlocation="buyBt" productId={id}></AddToCart>
             </CatalogueContainer>
         </>
     );
 }
-export function ButtonCart({ className }) {
+export function ButtonCart({ className ,productId}) {
     const getComponentInfo = () => {
+        // this function should retreve the product id
+        // after retreveing the id now we need to find that product from id 
+        // and add it to a DS which will be rendered on cart page
         console.log("Added to Cart");
     };
     return (
-        <button className={className} onClick={getComponentInfo}>
+        <button className={className} onClick={getComponentInfo} data-productid={productId}>
             Add to Cart
         </button>
     );

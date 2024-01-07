@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useProductAPI } from "./useAPIs";
 import { DetailCont, ProductDtContainer } from "./style/ProductDesc.style";
 import { AddToCart } from "./style/AddToCart.style";
@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 export function ProductDesc() {
     const [quantity, setQuantity] = useState(0);
     const inputRef = useRef(null);
+    const [searchParams , setSearchParams] = useSearchParams();
     const { data, loading, error } = useProductAPI(
         "https://fakestoreapi.com/products?limit=12",
     );
@@ -40,6 +41,7 @@ export function ProductDesc() {
     if (loading) return <h2>Loading...</h2>;
     if (error) return <h2>Error Occurred</h2>;
     const prdData = data.find((el) => el.id == productid);
+    //TODO:first need to calculate the total price of a order based on the quantity purchased
     return (
         <ProductDtContainer>
             <img
@@ -50,9 +52,9 @@ export function ProductDesc() {
                 style={{ gridArea: "img" }}
             />
             <DetailCont>
-                <p style={{ gridArea: "title", fontWeight: "bold" }}>{prdData.title}</p>
+                <p style={{ gridArea: "title" }} className="font-extrabold">{prdData.title}</p>
                 <p style={{ gridArea: "desc" }}>{prdData.description}</p>
-                <p style={{ gridArea: "price" }}>Price:- ${prdData.price}</p>
+                <p style={{ gridArea: "price" }} className="font-extrabold ">Price:- ${prdData.price}</p>
                 <div style={{ gridArea: "buyBt", display: "flex" }}>
                     <button style={decStyle} onClick={handlingdec}>
                         -
@@ -68,7 +70,7 @@ export function ProductDesc() {
                         +
                     </button>
                 </div>
-                <AddToCart gridArea="buyBt" />
+                <AddToCart gridArea="buyBt" productId={prdData.id} />
             </DetailCont>
         </ProductDtContainer>
     );

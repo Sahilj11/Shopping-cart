@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function CartPage(){
+function CartPage({productAdded}){
     const[addedproduct,setProduct] = useState([]);
    // we need to get the key value from the button clicked 
 }
