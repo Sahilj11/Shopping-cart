@@ -1,16 +1,12 @@
-import { useParams, useSearchParams } from "react-router-dom";
-import { useProductAPI } from "./useAPIs";
+import { useParams } from "react-router-dom";
 import { DetailCont, ProductDtContainer } from "./style/ProductDesc.style";
 import { AddToCart } from "./style/AddToCart.style";
 import { useEffect, useRef, useState } from "react";
 
-export function ProductDesc() {
+export function ProductDesc({ data, loading, error ,addingProduct}) {
     const [quantity, setQuantity] = useState(0);
     const inputRef = useRef(null);
-    const [searchParams , setSearchParams] = useSearchParams();
-    const { data, loading, error } = useProductAPI(
-        "https://fakestoreapi.com/products?limit=12",
-    );
+    
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.value = quantity;
@@ -52,9 +48,13 @@ export function ProductDesc() {
                 style={{ gridArea: "img" }}
             />
             <DetailCont>
-                <p style={{ gridArea: "title" }} className="font-extrabold">{prdData.title}</p>
+                <p style={{ gridArea: "title" }} className="font-extrabold">
+                    {prdData.title}
+                </p>
                 <p style={{ gridArea: "desc" }}>{prdData.description}</p>
-                <p style={{ gridArea: "price" }} className="font-extrabold ">Price:- ${prdData.price}</p>
+                <p style={{ gridArea: "price" }} className="font-extrabold ">
+                    Price:- ${prdData.price}
+                </p>
                 <div style={{ gridArea: "buyBt", display: "flex" }}>
                     <button style={decStyle} onClick={handlingdec}>
                         -
@@ -62,6 +62,7 @@ export function ProductDesc() {
                     <input
                         type="number"
                         ref={inputRef}
+                        id="quantityvalue"
                         placeholder="Enter Quantity"
                         style={{ textAlign: "center" }}
                         onChange={handlingQuantity}
@@ -70,7 +71,7 @@ export function ProductDesc() {
                         +
                     </button>
                 </div>
-                <AddToCart gridArea="buyBt" productId={prdData.id} />
+                <AddToCart gridArea="buyBt" productId={prdData.id} addingProduct={addingProduct} dataProd={prdData}/>
             </DetailCont>
         </ProductDtContainer>
     );

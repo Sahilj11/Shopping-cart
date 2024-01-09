@@ -1,9 +1,5 @@
-import { useProductAPI } from "./useAPIs";
 import { Product } from "./Product";
-export function ProductPage() {
-    const { data, loading, error } = useProductAPI(
-        "https://fakestoreapi.com/products?limit=12",
-    );
+export function ProductPage({ data, loading, error, addProduct }) {
     if (loading) return <h2>Loading...</h2>;
     if (error) return <h2>Error Occured</h2>;
     return (
@@ -20,11 +16,13 @@ export function ProductPage() {
                 {data.map((el) => (
                     <Product
                         key={el.id}
+                        dataProd={el}
                         id={el.id}
                         title={el.title}
                         price={el.price}
                         imgUrl={el.image}
                         desc={el.description}
+                        addingProduct={addProduct}
                     />
                 ))}
             </div>

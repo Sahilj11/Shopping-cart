@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-export function NavigationBar() {
+export function NavigationBar({totalItem}) {
     const liStyle = {
         display:"flex",
         justifyContent:"space-around",
@@ -13,8 +13,7 @@ export function NavigationBar() {
         <nav className="bg-blue-300" style={navBar}>
             <li style={liStyle} >
                 <ul><Link to="/">Home</Link></ul>
-                <ul><Link to="/cart">Cart</Link></ul>
-                <ul>Cart</ul>
+                <ul><Link to="/cart">Cart[{totalItem}]</Link></ul>
             </li>
         </nav>
     );
