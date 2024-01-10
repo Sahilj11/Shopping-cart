@@ -5,29 +5,58 @@ import { NotFound } from "./components/NotFound";
 import { ProductDesc } from "./components/ProductDesc";
 import { CartPage } from "./components/CartPage";
 import { useProductAPI } from "./components/useAPIs";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useReducer } from "react";
+
+const ACTIONS = {
+    ADD_ITEM: "add-product",
+    REMOVE_ITEM: "remove-item",
+};
 function App() {
     const { data, loading, error } = useProductAPI(
         "https://fakestoreapi.com/products?limit=8",
     );
-    // how to manage state from here itself
-    const [cart, setCart] = useState([]);
-    const [numberOfItem, setNumberItem] = useState(0);
-    useEffect(()=>{
-        setNumberItem(cart.length)
-    },[cart])
-    const addingProduct = (product) => {
-        const newCart = [...cart, product];
-        setCart(newCart);
+
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case ACTIONS.ADD_ITEM:
+                return {
+                    cart: [...state.cart, newItem(action.payload.product)],
+                    count: state.cart.length + 1,
+                    cartValue: state.cart.reduce((accum, cv) => accum + cv.price, 0),
+                };
+            case ACTIONS.REMOVE_ITEM:
+                return {
+                    cart: state.cart.filter((el) => el.id != action.payload.product.id),
+                    count: state.cart.length - 1,
+                    cartValue: state.cart.reduce((accum, cv) => accum + cv.price, 0),
+                };
+        }
     };
-    const deletingProduct = (product) => {
-        const newCart = cart.filter((el)=> el.id != product.id);
-        setCart(newCart);
+
+    const [state, dispatch] = useReducer(reducer, {
+        cart: [],
+        count: 0,
+        cartValue: 0,
+    });
+
+    const addingProduct = (product, quantity = 1) => {
+        dispatch({
+            type: ACTIONS.ADD_ITEM,
+            payload: { product: product, quantity: quantity },
+        });
     };
+
+    function deletingProduct(product) {
+        dispatch({ type: ACTIONS.REMOVE_ITEM, payload: { product: product } });
+    }
+
+    function newItem(productAdded, quantity = 1) {
+        return { ...productAdded, quantity: quantity };
+    }
+
     return (
         <>
-            <NavigationBar totalItem={numberOfItem}/>
+            <NavigationBar totalItem={state.count} />
             <Routes>
                 <Route
                     path="/"
@@ -42,7 +71,14 @@ function App() {
                 />
                 <Route
                     path="/productdetail/:productid"
-                    element={<ProductDesc data={data} loading={loading} error={error} addingProduct={addingProduct}/>}
+                    element={
+                        <ProductDesc
+                            data={data}
+                            loading={loading}
+                            error={error}
+                            addingProduct={addingProduct}
+                        />
+                    }
                 ></Route>
                 <Route
                     path="/cart"
@@ -51,8 +87,8 @@ function App() {
                             data={data}
                             loading={loading}
                             error={error}
-                            cartValue={cart}
                             deleteProduct={deletingProduct}
+                            cart={state}
                         />
                     }
                 />
